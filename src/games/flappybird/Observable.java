@@ -2,26 +2,26 @@ package games.flappybird;
 
 import java.util.ArrayList;
 
-public class Observable<T> {
+public class Observable<V> {
 
-    private T value;
-    private final ArrayList<OnValueChangedListener<T>> listeners;
+    private V value;
+    private final ArrayList<OnValueChangedListener<V>> listeners;
 
-    public Observable(T initValue) {
+    public Observable(V initValue) {
         this.value = initValue;
         listeners = new ArrayList<>();
     }
 
-    public void setValue(T value) {
+    public void setValue(V value) {
         this.value = value;
         listeners.forEach(listener -> listener.onValueChanged(value));
     }
 
-    public T getValue() {
+    public V getValue() {
         return value;
     }
 
-    public void observe(OnValueChangedListener<T> listener) {
+    public void observe(OnValueChangedListener<V> listener) {
         listeners.add(listener);
         listener.onValueChanged(value);
     }

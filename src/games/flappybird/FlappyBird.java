@@ -7,10 +7,12 @@ import java.awt.event.KeyListener;
 
 public class FlappyBird extends JFrame implements
         Observable.OnValueChangedListener<GameState>,
+        Renderer.RendererRepaintListener,
         KeyListener
 {
 
     private final GameController gameController = new GameController();
+    private final Renderer renderer = new Renderer(this);
     private final JPanel sky = new JPanel();
     private final JPanel ground = new JPanel();
     private final JPanel grass = new JPanel();
@@ -18,6 +20,7 @@ public class FlappyBird extends JFrame implements
     private final JButton exitButton = new JButton();
     private final JLabel title = new JLabel();
     private final JLabel score = new JLabel();
+
 
 
     public FlappyBird() {
@@ -66,11 +69,14 @@ public class FlappyBird extends JFrame implements
         this.setSize(500,500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
+        this.setTitle("Flappy Bird");
+        this.addKeyListener(this);
         this.setVisible(true);
         addComponents();
     }
 
     private void addComponents() {
+        this.add(renderer);
         this.add(score);
         this.add(title);
         this.add(playButton);
@@ -99,7 +105,6 @@ public class FlappyBird extends JFrame implements
     }
 
     private void setGameStartedState() {
-        gameController.startGame();
     }
 
     private void setGameOverState() {
@@ -133,18 +138,20 @@ public class FlappyBird extends JFrame implements
         }
     }
 
-
-
     @Override
-    public void keyReleased(KeyEvent e) {
-        gameController.jump();
+    public void onRepaint(Graphics g) {
+
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyChar() == KeyEvent.VK_SPACE) {
+            gameController.jump();
+        }
+    }
+    @Override
+    public void keyReleased(KeyEvent e) {}
 
     @Override
-    public void keyPressed(KeyEvent e) {}
-
-
+    public void keyTyped(KeyEvent e) {}
 }

@@ -1,8 +1,11 @@
 package games.flappybird;
 
+import javax.swing.*;
+
 public class GameController {
     public Observable<GameState> gameState;
     public Observable<Integer> score;
+    private Timer timer;
 
     public GameController() {
         gameState = new Observable<>(GameState.INIT);
