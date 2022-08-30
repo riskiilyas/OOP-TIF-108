@@ -2,17 +2,29 @@ package games.flappybird;
 
 public class GameController {
     public Observable<GameState> gameState;
-    private int score = 0;
+    public Observable<Integer> score;
+
+    public GameController() {
+        gameState = new Observable<>(GameState.INIT);
+        score = new Observable<>(0);
+    }
 
     public void startGame() {
-
+        gameState.setValue(GameState.STARTED);
+        score.setValue(0);
     }
 
-    public int addScore() {
-        return ++score;
+    public void exit() {
+        System.exit(0);
     }
 
-    public int getScore() {
-        return score;
+    public void jump() {
+        if(gameState.getValue() == GameState.STARTED) {
+            //TODO: Jump Logic
+        }
+    }
+
+    private void addScore() {
+        score.setValue(score.getValue()+1);
     }
 }

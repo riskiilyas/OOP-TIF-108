@@ -2,8 +2,13 @@ package games.flappybird;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class FlappyBird extends JFrame implements Observable.OnValueChangedListener<GameState> {
+public class FlappyBird extends JFrame implements
+        Observable.OnValueChangedListener<GameState>,
+        KeyListener
+{
 
     private final GameController gameController = new GameController();
     private final JPanel sky = new JPanel();
@@ -19,6 +24,11 @@ public class FlappyBird extends JFrame implements Observable.OnValueChangedListe
         initScenario();
 
         gameController.gameState.observe(this);
+        gameController.score.observe(value -> {
+            if (gameController.gameState.getValue() != GameState.INIT) {
+                score.setText("Score = " + value);
+            }
+        });
     }
 
     private void initScenario() {
@@ -41,7 +51,7 @@ public class FlappyBird extends JFrame implements Observable.OnValueChangedListe
         exitButton.setBounds(150, 220, 200, 50);
         exitButton.setVisible(false);
         exitButton.addActionListener(
-                e -> System.exit(0)
+                e -> gameController.exit()
         );
 
         sky.setBackground(Color.CYAN);
@@ -88,7 +98,7 @@ public class FlappyBird extends JFrame implements Observable.OnValueChangedListe
         exitButton.setText("Exit");
     }
 
-    private void setGameStartedstate() {
+    private void setGameStartedState() {
         gameController.startGame();
     }
 
@@ -97,7 +107,6 @@ public class FlappyBird extends JFrame implements Observable.OnValueChangedListe
         title.setText("Game Over!");
 
         score.setVisible(true);
-        score.setText("Score = " + score);
 
         playButton.setVisible(true);
         playButton.setText("Start");
@@ -114,7 +123,7 @@ public class FlappyBird extends JFrame implements Observable.OnValueChangedListe
                 setInitState();
                 break;
             case STARTED:
-                setGameStartedstate();
+                setGameStartedState();
                 break;
             case GAME_OVER:
                 setGameOverState();
@@ -123,4 +132,19 @@ public class FlappyBird extends JFrame implements Observable.OnValueChangedListe
                 break;
         }
     }
+
+
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        gameController.jump();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void keyPressed(KeyEvent e) {}
+
+
 }
