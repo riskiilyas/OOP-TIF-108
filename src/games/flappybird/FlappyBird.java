@@ -13,6 +13,7 @@ public class FlappyBird extends JFrame implements
 
     private final GameController gameController = new GameController();
     private final Renderer renderer = new Renderer(this);
+    private final GamePanel gamePanel = new GamePanel(gameController);
     private final JPanel sky = new JPanel();
     private final JPanel ground = new JPanel();
     private final JPanel grass = new JPanel();
