@@ -3,9 +3,9 @@ package games.flappybird;
 import javax.swing.*;
 import java.awt.*;
 
-public class FlappyBird extends JFrame implements GameStateObservable.OnGameStateChangedListener {
+public class FlappyBird extends JFrame implements Observable.OnValueChangedListener<GameState> {
 
-    private final GameStateObservable gameStateObservable;
+    private final GameController gameController = new GameController();
     private final JPanel sky = new JPanel();
     private final JPanel ground = new JPanel();
     private final JPanel grass = new JPanel();
@@ -14,13 +14,11 @@ public class FlappyBird extends JFrame implements GameStateObservable.OnGameStat
     private final JLabel title = new JLabel();
     private final JLabel score = new JLabel();
 
-    private int mScore = 0;
 
     public FlappyBird() {
         initScenario();
 
-        gameStateObservable = new GameStateObservable(GameState.INIT);
-        gameStateObservable.observe(this);
+        gameController.gameState.observe(this);
     }
 
     private void initScenario() {
@@ -37,7 +35,7 @@ public class FlappyBird extends JFrame implements GameStateObservable.OnGameStat
         playButton.setBounds(150, 150, 200, 50);
         playButton.setVisible(false);
         playButton.addActionListener(
-                e -> gameStateObservable.setGameState(GameState.STARTED)
+                e -> gameController.startGame()
         );
 
         exitButton.setBounds(150, 220, 200, 50);
@@ -91,7 +89,7 @@ public class FlappyBird extends JFrame implements GameStateObservable.OnGameStat
     }
 
     private void setGameStartedstate() {
-        mScore = 0;
+        gameController.startGame();
     }
 
     private void setGameOverState() {
@@ -109,9 +107,9 @@ public class FlappyBird extends JFrame implements GameStateObservable.OnGameStat
     }
 
     @Override
-    public void onGameStateChanged(GameState gameState) {
+    public void onValueChanged(GameState value) {
         stateChanged();
-        switch (gameState) {
+        switch (value) {
             case INIT:
                 setInitState();
                 break;
