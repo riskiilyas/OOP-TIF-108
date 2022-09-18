@@ -1,5 +1,6 @@
 package exercise.swing;
 
+import exercise.swing.ui.frame.ButtonFrame;
 import games.flappybird.FlappyBird;
 
 public class Main {
@@ -7,7 +8,7 @@ public class Main {
 //        MyFrame myFrame = new MyFrame();
 //        LabelFrame labelFrame = new LabelFrame();
 //        PanelFrame panelFrame = new PanelFrame();
-//        ButtonFrame buttonFrame = new ButtonFrame();
-        FlappyBird flappyBird = new FlappyBird();
+        ButtonFrame buttonFrame = new ButtonFrame();
+//        FlappyBird flappyBird = new FlappyBird();
     }
 }

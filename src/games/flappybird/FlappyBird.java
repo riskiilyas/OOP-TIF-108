@@ -14,9 +14,6 @@ public class FlappyBird extends JFrame implements
     private final GameController gameController = new GameController();
     private final Renderer renderer = new Renderer(this);
     private final GamePanel gamePanel = new GamePanel(gameController);
-    private final JPanel sky = new JPanel();
-    private final JPanel ground = new JPanel();
-    private final JPanel grass = new JPanel();
     private final JButton playButton = new JButton();
     private final JButton exitButton = new JButton();
     private final JLabel title = new JLabel();
@@ -58,14 +55,6 @@ public class FlappyBird extends JFrame implements
                 e -> gameController.exit()
         );
 
-        sky.setBackground(Color.CYAN);
-
-        ground.setBounds(0, 400, 500, 100);
-        ground.setBackground(new Color(0x9a5c1d));
-
-        grass.setBounds(0, 380, 500, 20);
-        grass.setBackground(Color.GREEN);
-
         this.setBackground(Color.CYAN);
         this.setSize(500,500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,9 +71,6 @@ public class FlappyBird extends JFrame implements
         this.add(title);
         this.add(playButton);
         this.add(exitButton);
-        this.add(ground);
-        this.add(grass);
-        this.add(sky);
     }
 
     private void stateChanged() {
