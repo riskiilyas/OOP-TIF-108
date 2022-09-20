@@ -3,8 +3,7 @@ package games.snake;
 public class SnakeGame {
 
     public static void main(String[] args) {
-        GamePanel gamePanel = new GamePanel();
-        gamePanel.startGame();
+        GameFrame gameFrame = new GameFrame();
     }
 
     public SnakeGame() {
